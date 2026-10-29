@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Interactive SQL and Power BI portfolio project analyzing 646,945 Vietnamese fashion e-commerce orders." />
+  <title>Vietnam Fashion E-commerce Analytics</title>
+  <link rel="stylesheet" href="styles.css?v=20261029-luxury-gold-card-v2" />
+</head>
+<body>
+  <header class="hero" id="top">
+    <nav class="nav shell">
+      <a class="brand" href="#top" aria-label="Go to top">
+        <span class="brand-mark">NF</span>
+        <span>Analytics Portfolio</span>
+      </a>
+      <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#findings">Findings</a>
+        <a href="#resources">Workflow</a>
+      </div>
+    </nav>
+
+    <div class="hero-grid shell">
+      <section class="hero-copy">
+        <p class="eyebrow">SQL · POWER BI · PYTHON/PANDAS</p>
+        <h1>From raw transactions to decisions.</h1>
+        <p class="hero-lede">
+          An end-to-end analytics project built on <strong>646,945 orders</strong> and
+          <strong>714,669 order-item records</strong> from a Vietnamese fashion retailer.
+          The analysis reconciles sales, margin and returns before turning them into an
+          executive dashboard.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#dashboard">Explore the dashboard</a>
+          <a class="button ghost" href="#resources">Review the workflow</a>
+        </div>
+        <p class="hero-note">Le Hoang Nghia · Finance & data analytics portfolio</p>
+      </section>
+
+      <aside class="pipeline-card" aria-label="Data workflow">
+        <div class="pipeline-head">
+          <span>01 — 04</span>
+          <span>DATA WORKFLOW</span>
+        </div>
+        <ol class="pipeline">
+          <li><span>01</span><div><b>Clean</b><small>Python / pandas</small></div></li>
+          <li><span>02</span><div><b>Model</b><small>SQLite relational layer</small></div></li>
+          <li><span>03</span><div><b>Analyze</b><small>SQL validation & KPIs</small></div></li>
+          <li><span>04</span><div><b>Communicate</b><small>Power BI & interactive web</small></div></li>
+        </ol>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard shell section" id="dashboard">
+      <div class="section-title">
+        <div>
+          <p class="eyebrow">EXECUTIVE VIEW</p>
+          <h2>Business performance at a glance</h2>
+        </div>
+        <div class="filter-wrap">
+          <label for="yearFilter">Period</label>
+          <select id="yearFilter" aria-label="Filter dashboard by year">
+            <option value="all">All years</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="kpi-grid" id="kpiGrid" aria-live="polite"></div>
+
+      <div class="visual-grid">
+        <article class="panel panel-wide">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Delivered net sales</p>
+              <h3>Monthly revenue trend</h3>
+            </div>
+            <span class="panel-unit">VND</span>
+          </div>
+          <div class="line-chart" id="salesChart" role="img" aria-label="Monthly delivered net sales line chart"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Portfolio mix</p>
+              <h3>Sales by category</h3>
+            </div>
+          </div>
+          <div class="bar-chart" id="categoryChart"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Customer friction</p>
+              <h3>Why products came back</h3>
+            </div>
+          </div>
+          <div class="donut-layout">
+            <div class="donut" id="returnDonut" aria-label="Return reasons donut chart">
+              <div class="donut-center"><strong id="returnTotal">—</strong><span>units returned</span></div>
+            </div>
+            <div class="legend" id="returnLegend"></div>
+          </div>
+        </article>
+      </div>
+
+      <article class="panel table-panel">
+        <div class="panel-head table-head">
+          <div>
+            <p class="panel-kicker">Product economics</p>
+            <h3>Top products by delivered sales</h3>
+          </div>
+          <label class="compact-filter">Category
+            <select id="categoryFilter" aria-label="Filter products by category">
+              <option value="all">All categories</option>
+            </select>
+          </label>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Product</th><th>Category</th><th>Orders</th><th>Net sales</th><th>Gross margin</th></tr></thead>
+            <tbody id="productRows"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="findings section" id="findings">
+      <div class="shell">
+        <div class="section-title light">
+          <div>
+            <p class="eyebrow">WHAT THE DATA SAYS</p>
+            <h2>Three decisions hidden in the detail</h2>
+          </div>
+        </div>
+        <div class="finding-grid">
+          <article class="finding-card accent-coral">
+            <span class="finding-number">01</span>
+            <h3>Margin quality needs attention</h3>
+            <p><strong>520 products</strong> produced negative delivered gross profit. They represent <strong id="negativeShare">—</strong> of delivered net sales, so revenue growth alone overstates product health.</p>
+            <small>Action: review pricing, discounting and unit economics at SKU level.</small>
+          </article>
+          <article class="finding-card accent-lime">
+            <span class="finding-number">02</span>
+            <h3>Fit is the largest return problem</h3>
+            <p><strong>Wrong size</strong> is the leading return reason and accounts for <strong id="wrongSizeShare">—</strong> of returned units.</p>
+            <small>Action: improve size guidance and product-page fit information.</small>
+          </article>
+          <article class="finding-card accent-blue">
+            <span class="finding-number">03</span>
+            <h3>Volume is not the same as value</h3>
+            <p>Category scale differs materially from category margin. The most useful operating view combines sales, gross profit and return rate—not sales alone.</p>
+            <small>Action: prioritize categories on contribution, not only top-line volume.</small>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="resources shell section" id="resources">
+      <div class="section-title">
+        <div>
+          <p class="eyebrow">PROJECT WORKFLOW</p>
+          <h2>From data cleaning to dashboard</h2>
+        </div>
+      </div>
+      <p class="resources-intro">
+        The public portfolio focuses on the three parts used in the analysis: pandas prepares the
+        source tables, SQL produces validated business outputs, and a small DAX layer keeps Power BI
+        measures responsive to filters. Hover or focus on a card to preview the corresponding code.
+      </p>
+      <div class="resource-grid">
+        <a class="resource-card code-preview-card is-active" data-preview="python" aria-controls="workflowCodePreview" href="https://github.com/hoangnghiale238/Vietnam-Fashion-Ecommerce-Analytics2/blob/main/scripts/01_clean_and_profile_data.py" target="_blank" rel="noopener">
+          <div class="resource-summary">
+            <span>01</span><div><b>Prepare &amp; validate data</b><small>Clean the raw CSVs, standardize fields and validate joins with pandas</small><em class="tool-chip">Python · pandas</em></div><strong>↗</strong>
+          </div>
+        </a>
+        <a class="resource-card code-preview-card" data-preview="sql" aria-controls="workflowCodePreview" href="https://github.com/hoangnghiale238/Vietnam-Fashion-Ecommerce-Analytics2/blob/main/sql/portfolio_queries.sql" target="_blank" rel="noopener">
+          <div class="resource-summary">
+            <span>02</span><div><b>Analyze business performance</b><small>Aggregate sales, margin and returns after importing the clean CSVs into SQLite</small><em class="tool-chip">SQLite · SQL</em></div><strong>↗</strong>
+          </div>
+        </a>
+        <a class="resource-card code-preview-card" data-preview="dax" aria-controls="workflowCodePreview" href="https://github.com/hoangnghiale238/Vietnam-Fashion-Ecommerce-Analytics2/blob/main/powerbi/measures.dax" target="_blank" rel="noopener">
+          <div class="resource-summary">
+            <span>03</span><div><b>Build the reporting layer</b><small>Use a compact DAX layer for KPIs that respond to report filters</small><em class="tool-chip">Power BI · DAX</em></div><strong>↗</strong>
+          </div>
+        </a>
+      </div>
+      <div class="workflow-code-window" id="workflowCodePreview" aria-live="polite">
+        <div class="code-head"><span></span><span></span><span></span><b id="workflowCodeTitle">01_clean_and_profile_data.py</b></div>
+        <div class="workflow-code-panels">
+          <pre class="workflow-code-panel is-active" data-code-panel="python" data-filename="01_clean_and_profile_data.py"><code>orders[<span class="str">"order_status"</span>] = (
+    orders[<span class="str">"order_status"</span>]
+    .str.strip().str.lower()
+)
+
+order_items[<span class="str">"net_value"</span>] = (
+    order_items[<span class="str">"quantity"</span>] * order_items[<span class="str">"unit_price"</span>]
+    - order_items[<span class="str">"discount_amount"</span>]
+)
+
+sales = order_items.merge(
+    orders,
+    on=<span class="str">"order_id"</span>,
+    how=<span class="str">"left"</span>,
+    validate=<span class="str">"many_to_one"</span>
+)</code></pre>
+          <pre class="workflow-code-panel" data-code-panel="sql" data-filename="portfolio_queries.sql" hidden><code><span class="kw">SELECT</span>
+    order_month,
+    <span class="fn">COUNT</span>(*) <span class="kw">AS</span> total_orders,
+    <span class="fn">SUM</span>(order_status = <span class="str">'delivered'</span>) <span class="kw">AS</span> delivered_orders,
+    <span class="fn">ROUND</span>(<span class="fn">SUM</span>(
+        <span class="kw">CASE WHEN</span> order_status = <span class="str">'delivered'</span>
+        <span class="kw">THEN</span> net_value <span class="kw">ELSE</span> 0 <span class="kw">END</span>
+    ), 2) <span class="kw">AS</span> delivered_net_sales
+<span class="kw">FROM</span> vw_order_analytics
+<span class="kw">GROUP BY</span> order_month
+<span class="kw">ORDER BY</span> order_month;</code></pre>
+          <pre class="workflow-code-panel" data-code-panel="dax" data-filename="measures.dax" hidden><code>Delivered Net Sales =
+<span class="fn">CALCULATE</span>(
+    <span class="fn">SUM</span>(FactSales[net_value]),
+    FactSales[order_status] = <span class="str">"delivered"</span>
+)
+
+Delivered Gross Margin =
+<span class="fn">DIVIDE</span>(
+    [Delivered Gross Profit],
+    [Delivered Net Sales]
+)
+
+Average Order Value =
+<span class="fn">DIVIDE</span>(
+    [Delivered Net Sales],
+    [Delivered Orders]
+)</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="related-project shell" aria-labelledby="related-project-title">
+      <a href="https://hoangnghiale238.github.io/MWG_Research_/" target="_blank" rel="noopener">
+        <div class="related-project-copy">
+          <p class="eyebrow">NEXT PROJECT · EQUITY RESEARCH</p>
+          <h2 id="related-project-title"><span class="project-highlight">MWG</span> Company Research &amp; Valuation</h2>
+          <p>Explore the finance side of the portfolio through company analysis, three-statement modeling, DCF, SOTP and scenario testing.</p>
+          <div class="related-project-tags" aria-label="Project methods">
+            <span>Financial modeling</span>
+            <span>DCF</span>
+            <span>SOTP</span>
+          </div>
+        </div>
+        <div class="related-project-cta">
+          <span>Explore MWG equity research</span>
+          <strong aria-hidden="true">↗</strong>
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <p><b>Vietnam Fashion E-commerce Analytics</b><br />Built by Le Hoang Nghia</p>
+      <p>Data period: <span id="dataPeriod">—</span><br />Last generated from validated pandas outputs</p>
+      <p><a href="https://github.com/hoangnghiale238/Vietnam-Fashion-Ecommerce-Analytics2" target="_blank" rel="noopener">GitHub</a> · <a href="#top">Back to top ↑</a></p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

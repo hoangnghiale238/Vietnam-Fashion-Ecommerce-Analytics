@@ -1,0 +1,65 @@
+Delivered Net Sales =
+CALCULATE(
+    SUM(FactSales[net_value]),
+    FactSales[order_status] = "delivered"
+)
+
+Delivered Orders =
+CALCULATE(
+    DISTINCTCOUNT(FactSales[order_id]),
+    FactSales[order_status] = "delivered"
+)
+
+Delivered Units =
+CALCULATE(
+    SUM(FactSales[units]),
+    FactSales[order_status] = "delivered"
+)
+
+Delivered Gross Profit =
+CALCULATE(
+    SUM(FactSales[gross_profit]),
+    FactSales[order_status] = "delivered"
+)
+
+Delivered Gross Margin =
+DIVIDE([Delivered Gross Profit], [Delivered Net Sales])
+
+Average Order Value =
+DIVIDE([Delivered Net Sales], [Delivered Orders])
+
+Total Orders =
+DISTINCTCOUNT(FactSales[order_id])
+
+Delivered Order Share =
+DIVIDE([Delivered Orders], [Total Orders])
+
+Cancelled Orders =
+CALCULATE(
+    DISTINCTCOUNT(FactSales[order_id]),
+    FactSales[order_status] = "cancelled"
+)
+
+Cancellation Rate =
+DIVIDE([Cancelled Orders], [Total Orders])
+
+Returned Units =
+SUM(FactSales[returned_units])
+
+Return Unit Rate =
+DIVIDE([Returned Units], [Returned Units] + [Delivered Units])
+
+Refund Amount =
+SUM(FactSales[refund_amount])
+
+Negative Margin Products =
+COUNTROWS(
+    FILTER(
+        SUMMARIZE(
+            FILTER(FactSales, FactSales[order_status] = "delivered"),
+            FactSales[product_id],
+            "ProductGP", SUM(FactSales[gross_profit])
+        ),
+        [ProductGP] < 0
+    )
+)

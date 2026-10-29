@@ -1,0 +1,7 @@
+order_status,orders,order_share_pct
+delivered,516716,79.87
+cancelled,59462,9.19
+returned,36142,5.59
+shipped,13773,2.13
+paid,13577,2.1
+created,7275,1.12

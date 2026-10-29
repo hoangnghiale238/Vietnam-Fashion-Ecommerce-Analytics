@@ -1,0 +1,4 @@
+device_type,total_orders,delivered_orders,delivered_net_sales,delivered_share_pct
+mobile,291482,232872,5646534710.07,79.89
+desktop,258855,206820,5003129636.18,79.9
+tablet,96608,77024,1868511610.95,79.73

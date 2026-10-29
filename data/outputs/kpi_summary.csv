@@ -1,0 +1,13 @@
+metric,value
+total_orders,646945.0
+delivered_orders,516716.0
+delivered_net_sales,12518175957.2
+delivered_gross_profit,1213762056.3884153
+gross_margin_pct,9.69599772793019
+average_order_value,24226.41442726759
+delivered_units,2565930.0
+returned_units,109586.0
+refund_amount,510598506.55
+return_unit_rate_pct,4.095882812885439
+cancellation_rate_pct,9.191198633577816
+negative_margin_products,520.0

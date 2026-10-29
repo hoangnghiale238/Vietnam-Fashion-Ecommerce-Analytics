@@ -1,0 +1,6 @@
+payment_method,total_orders,delivered_orders,delivered_net_sales,delivered_share_pct
+credit_card,356352,291073,7038931076.99,81.68
+paypal,97018,79189,1932122842.77,81.62
+cod,96681,67355,1636732003.48,69.67
+apple_pay,64763,52836,1276863371.79,81.58
+bank_transfer,32131,26263,633526662.17,81.74

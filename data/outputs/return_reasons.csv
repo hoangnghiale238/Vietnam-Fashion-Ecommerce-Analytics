@@ -1,0 +1,6 @@
+return_reason,return_records,returned_units,refund_amount,return_unit_share_pct
+wrong_size,13967,38042,176687200.75,34.71
+defective,8020,22274,103599143.26,20.33
+not_as_described,7035,19358,90653190.78,17.66
+changed_mind,6931,19144,89721759.0,17.47
+late_delivery,3986,10768,49937212.76,9.83
